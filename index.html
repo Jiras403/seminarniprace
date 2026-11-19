@@ -1,89 +1,531 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="cs">
 <head>
-    <title>Archiv rychlodabingů</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHIV RYCHLODABINGŮ</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #008080;
+            color: #000000;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+        }
+
+        a {
+            color: #0000ee;
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: #551a8b;
+        }
+
+        .page {
+            width: 900px;
+            max-width: 96%;
+            margin: 20px auto;
+            background: #c0c0c0;
+            border: 3px outset #ffffff;
+            box-shadow: 6px 6px 0 #004040;
+        }
+
+        .header {
+            background: #000080;
+            color: white;
+            padding: 12px;
+            border-bottom: 3px ridge #ffffff;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-family: "Times New Roman", serif;
+            font-size: 30px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            color: #ffff00;
+        }
+
+        .menu {
+            background: #c0c0c0;
+            padding: 8px;
+            border-bottom: 3px outset #ffffff;
+        }
+
+        .menu button {
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+            font-size: 13px;
+            background: #c0c0c0;
+            border: 2px outset #ffffff;
+            padding: 6px 12px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .menu button:active {
+            border-style: inset;
+        }
+
+        .content {
+            padding: 15px;
+            min-height: 500px;
+        }
+
+        .box {
+            background: #eeeeee;
+            border: 2px inset #ffffff;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+
+        .box h2 {
+            margin-top: 0;
+            color: #000080;
+            font-size: 20px;
+            border-bottom: 1px dashed #000000;
+            padding-bottom: 5px;
+        }
+
+        .film {
+            background: #ffffff;
+            border: 2px outset #ffffff;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .film-title {
+            font-weight: bold;
+            font-size: 17px;
+            color: #000080;
+        }
+
+        .film-info {
+            margin: 5px 0;
+            color: #333333;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #ffff00;
+            border: 1px solid #000000;
+            padding: 2px 5px;
+            font-size: 11px;
+            margin-right: 5px;
+        }
+
+        .sample {
+            margin-top: 8px;
+            padding: 8px;
+            background: #000000;
+            color: #00ff00;
+            border: 2px inset #808080;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 3px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 7px;
+            font-family: "Courier New", monospace;
+            border: 2px inset #ffffff;
+            background: #ffffff;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit {
+            margin-top: 15px;
+            padding: 8px 20px;
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+            background: #c0c0c0;
+            border: 3px outset #ffffff;
+            cursor: pointer;
+        }
+
+        .submit:active {
+            border-style: inset;
+        }
+
+        .footer {
+            text-align: center;
+            background: #000080;
+            color: white;
+            padding: 10px;
+            font-size: 12px;
+            border-top: 3px ridge #ffffff;
+        }
+
+        .blink {
+            color: red;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .counter {
+            display: inline-block;
+            background: black;
+            color: #00ff00;
+            padding: 3px 7px;
+            font-family: monospace;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 700px) {
+            .page {
+                width: 98%;
+                margin: 5px auto;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .menu button {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>ARCHIV RYCHLODABINGŮ</h1>
+<div class="page">
 
-<p>
-    <a href="#filmy">Filmy s rychlodabingem</a> |
-    <a href="#pridat">Přidat film</a>
-</p>
+    <!-- HLAVIČKA -->
+    <div class="header">
+        <h1>★ ARCHIV RYCHLODABINGŮ ★</h1>
+        <p>Databáze zapomenutých dabingů z VHS kazet</p>
+    </div>
 
-<hr>
+    <!-- MENU -->
+    <div class="menu">
+        <button onclick="showPage('films')">FILMY S RYCHLODABINGEM</button>
+        <button onclick="showPage('add')">PŘIDAT FILM</button>
+        <button onclick="showPage('about')">O ARCHIVU</button>
+    </div>
 
-<h2 id="filmy">Filmy s rychlodabingem</h2>
+    <!-- OBSAH -->
+    <div class="content">
 
-<h3>Terminátor 2</h3>
+        <!-- FILMY -->
+        <section id="films">
 
-<p>Rok: 1991</p>
-<p>Žánr: Akční</p>
-<p>Zdroj: VHS</p>
-<p>Dabér: Pepa</p>
+            <div class="box">
+                <h2>FILMY S RYCHLODABINGEM</h2>
 
-<p>Ukázka dabingu:</p>
+                <p>
+                    Databáze filmů, u kterých byl nalezen český rychlodabing.
+                    Kliknutím na ukázku si můžete poslechnout dostupný záznam.
+                </p>
 
-<audio controls>
-    <source src="ukazka.mp3">
-</audio>
+                <p>
+                    Počet záznamů:
+                    <span class="counter" id="filmCount">2</span>
+                </p>
+            </div>
 
-<hr>
 
-<h3>Vetřelec</h3>
+            <!-- FILM 1 -->
+            <div class="film">
 
-<p>Rok: 1979</p>
-<p>Žánr: Horor</p>
-<p>Zdroj: VHS</p>
-<p>Dabér: Franta</p>
+                <div class="film-title">
+                    01. Příklad filmu
+                </div>
 
-<p>Ukázka dabingu:</p>
+                <div class="film-info">
+                    <strong>Rok:</strong> 1997<br>
+                    <strong>Žánr:</strong> Akční<br>
+                    <strong>Zdroj:</strong> VHS<br>
+                    <strong>Rychlodabing:</strong> Ano
+                </div>
 
-<audio controls>
-    <source src="vetrelec.mp3">
-</audio>
+                <span class="tag">VHS</span>
+                <span class="tag">CZ DABING</span>
 
-<hr>
+                <p>
+                    <strong>Poznámka:</strong><br>
+                    Ukázkový záznam. Sem můžeš napsat informace
+                    o kazetě, distributorovi nebo dabingu.
+                </p>
 
-<h2 id="pridat">Přidat film</h2>
+                <div class="sample">
+                    ▶ UKÁZKA RYCHLODABINGU
+                    <audio controls>
+                        <!-- Sem vlož cestu k souboru -->
+                        <!-- <source src="ukazky/film1.mp3" type="audio/mpeg"> -->
+                    </audio>
+                </div>
 
-<form>
+            </div>
 
-    Název filmu:<br>
-    <input type="text">
-    <br><br>
 
-    Rok:<br>
-    <input type="text">
-    <br><br>
+            <!-- FILM 2 -->
+            <div class="film">
 
-    Žánr:<br>
-    <input type="text">
-    <br><br>
+                <div class="film-title">
+                    02. Další film
+                </div>
 
-    Jméno / přezdívka dabéra:<br>
-    <input type="text">
-    <br><br>
+                <div class="film-info">
+                    <strong>Rok:</strong> 1999<br>
+                    <strong>Žánr:</strong> Horor<br>
+                    <strong>Zdroj:</strong> VHS<br>
+                    <strong>Rychlodabing:</strong> Ano
+                </div>
 
-    Informace o dabingu:<br>
-    <textarea></textarea>
-    <br><br>
+                <span class="tag">VHS</span>
+                <span class="tag">RYCHLODABING</span>
 
-    Ukázka:<br>
-    <input type="file">
-    <br><br>
+                <p>
+                    <strong>Poznámka:</strong><br>
+                    Další ukázkový záznam v databázi.
+                </p>
 
-    <input type="submit" value="Přidat film">
+                <div class="sample">
+                    ▶ UKÁZKA RYCHLODABINGU
+                    <audio controls>
+                        <!-- <source src="ukazky/film2.mp3" type="audio/mpeg"> -->
+                    </audio>
+                </div>
 
-</form>
+            </div>
 
-<hr>
+        </section>
 
-<p>Archiv rychlodabingů © 2026</p>
+
+        <!-- PŘIDAT FILM -->
+        <section id="add" class="hidden">
+
+            <div class="box">
+
+                <h2>PŘIDAT NOVÝ FILM</h2>
+
+                <p>
+                    Vyplň informace o nalezeném rychlodabingu.
+                    Po odeslání se film přidá do seznamu na této stránce.
+                </p>
+
+                <form id="filmForm">
+
+                    <label for="title">Název filmu *</label>
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Např. Terminátor 2"
+                        required
+                    >
+
+                    <label for="year">Rok filmu</label>
+                    <input
+                        type="number"
+                        id="year"
+                        placeholder="1991"
+                    >
+
+                    <label for="genre">Žánr</label>
+                    <input
+                        type="text"
+                        id="genre"
+                        placeholder="Akční"
+                    >
+
+                    <label for="source">Zdroj</label>
+                    <select id="source">
+                        <option>VHS</option>
+                        <option>Video CD</option>
+                        <option>DVD</option>
+                        <option>Jiný</option>
+                    </select>
+
+                    <label for="note">Informace o dabingu</label>
+                    <textarea
+                        id="note"
+                        placeholder="Popis dabingu, hlas, distributor, kazeta..."
+                    ></textarea>
+
+                    <label for="audio">Ukázka dabingu</label>
+                    <input
+                        type="file"
+                        id="audio"
+                        accept="audio/*"
+                    >
+
+                    <button type="submit" class="submit">
+                        [ PŘIDAT DO ARCHIVU ]
+                    </button>
+
+                </form>
+
+                <p id="message" class="blink"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- O ARCHIVU -->
+        <section id="about" class="hidden">
+
+            <div class="box">
+
+                <h2>O ARCHIVU</h2>
+
+                <p>
+                    Tento web slouží jako neoficiální archiv českých
+                    rychlodabingů nalezených především na starých
+                    VHS kazetách.
+                </p>
+
+                <p>
+                    Cílem je zachovat informace o těchto dabinzích,
+                    jejich ukázky a fotografie či skeny původních kazet.
+                </p>
+
+                <hr>
+
+                <p>
+                    <span class="blink">!!! POZOR !!!</span>
+                    <br>
+                    Některé záznamy mohou pocházet z velmi starých
+                    analogových nosičů a jejich kvalita nemusí být ideální.
+                </p>
+
+                <p>
+                    Stav archivu: <strong>VE VÝVOJI</strong>
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- PATIČKA -->
+    <div class="footer">
+        ARCHIV RYCHLODABINGŮ © 2026
+        <br>
+        Nejlepší při rozlišení 800 × 600 :)
+    </div>
+
+</div>
+
+
+<script>
+
+    // Přepínání záložek
+    function showPage(page) {
+
+        document.getElementById("films").classList.add("hidden");
+        document.getElementById("add").classList.add("hidden");
+        document.getElementById("about").classList.add("hidden");
+
+        document.getElementById(page).classList.remove("hidden");
+    }
+
+
+    // Přidání filmu
+    document.getElementById("filmForm").addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const title = document.getElementById("title").value;
+        const year = document.getElementById("year").value;
+        const genre = document.getElementById("genre").value;
+        const source = document.getElementById("source").value;
+        const note = document.getElementById("note").value;
+
+        const film = document.createElement("div");
+
+        film.className = "film";
+
+        film.innerHTML = `
+            <div class="film-title">
+                NOVÝ ZÁZNAM: ${escapeHTML(title)}
+            </div>
+
+            <div class="film-info">
+                <strong>Rok:</strong> ${escapeHTML(year || "neuveden")}<br>
+                <strong>Žánr:</strong> ${escapeHTML(genre || "neuveden")}<br>
+                <strong>Zdroj:</strong> ${escapeHTML(source)}<br>
+                <strong>Rychlodabing:</strong> Ano
+            </div>
+
+            <span class="tag">NOVÝ ZÁZNAM</span>
+            <span class="tag">RYCHLODABING</span>
+
+            <p>
+                <strong>Poznámka:</strong><br>
+                ${escapeHTML(note || "Bez poznámky.")}
+            </p>
+
+            <div class="sample">
+                ▶ UKÁZKA RYCHLODABINGU
+                <p>Ukázka byla vybrána ve formuláři.</p>
+            </div>
+        `;
+
+        document.getElementById("films").appendChild(film);
+
+        // Aktualizace počtu filmů
+        const count = document.querySelectorAll("#films .film").length;
+        document.getElementById("filmCount").textContent = count;
+
+        // Zpráva
+        document.getElementById("message").textContent =
+            "FILM BYL PŘIDÁN DO ARCHIVU!";
+
+        // Vyčištění formuláře
+        document.getElementById("filmForm").reset();
+
+        // Přepnutí na filmy
+        setTimeout(function() {
+            showPage("films");
+            document.getElementById("message").textContent = "";
+        }, 800);
+
+    });
+
+
+    // Ochrana proti vložení HTML do databáze
+    function escapeHTML(text) {
+
+        const div = document.createElement("div");
+        div.textContent = text;
+
+        return div.innerHTML;
+    }
+
+</script>
 
 </body>
-
 </html>
